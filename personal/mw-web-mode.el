@@ -2,7 +2,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
-(defun mw-wveb-mode-hook ()
+(defun mw-web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)

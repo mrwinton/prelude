@@ -8,10 +8,20 @@
 ;;----------------------------------------------------------------------------
 ;; Window size and features
 ;;----------------------------------------------------------------------------
-;; (when (fboundp 'tool-bar-mode)
-;;   (tool-bar-mode -1))
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
 (when (fboundp 'set-scroll-bar-mode)
   (set-scroll-bar-mode nil))
+(when (eq system-type 'darwin)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (set-frame-parameter frame 'menu-bar-lines
+                                   (if (display-graphic-p frame)
+                                       1 0))))
+  (when (fboundp 'menu-bar-mode)
+    (menu-bar-mode -1)))
+(when (fboundp 'pixel-scroll-mode)
+  (pixel-scroll-mode 1))
 
 ;;----------------------------------------------------------------------------
 ;; Dimmer mode
@@ -19,7 +29,3 @@
 (prelude-require-package 'dimmer)
 (setq-default dimmer-fraction 0.1)
 (add-hook 'after-init-hook 'dimmer-mode)
-
-;;----------------------------------------------------------------------------
-;; Mode line preferences
-;;----------------------------------------------------------------------------

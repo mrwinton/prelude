@@ -29,3 +29,6 @@ Position the cursor at it's beginning, according to the current mode."
           (message file-name)
           (kill-new file-name))
       (error "Buffer not visiting a file"))))
+
+(define-key flyspell-mode-map (kbd "C-;") nil)
+(global-set-key (kbd "C-;") 'avy-goto-char-timer)

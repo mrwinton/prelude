@@ -1,6 +1,7 @@
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
+
 (setq-default
  blink-cursor-interval 0.4
  case-fold-search t
@@ -18,14 +19,81 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
-;; aspell settings
-(setq tab-width 2)
-(setq-default show-trailing-whitespace nil)
-
-;; macos settings
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-
 ;; Cut/copy the current line if no region is active
 (prelude-require-package 'whole-line-or-region)
 (add-hook 'after-init-hook 'whole-line-or-region-mode)
+
+;;----------------------------------------------------------------------------
+;; aspell preferences
+;;----------------------------------------------------------------------------
+
+(setq tab-width 2)
+(setq-default show-trailing-whitespace nil)
+
+;;----------------------------------------------------------------------------
+;; macos key preferences
+;;----------------------------------------------------------------------------
+
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+
+;;----------------------------------------------------------------------------
+;; quick font options
+;;----------------------------------------------------------------------------
+
+(defun set-font-bau ()
+  (interactive)
+  (set-font-size 120))
+
+(defun set-font-pairing ()
+  (interactive)
+  (set-font-size 160))
+
+(defun set-font-presentation ()
+  (interactive)
+  (set-font-size 220))
+
+(defun set-font-size (font-height)
+  (custom-set-faces `(default ((t (:height ,font-height :family "menlo"))))))
+
+;;----------------------------------------------------------------------------
+;; multiple cursors preferences
+;;----------------------------------------------------------------------------
+
+(prelude-require-package 'multiple-cursors)
+
+;; freindly shortcuts
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-+") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c m c") 'mc/edit-lines)
+(global-set-key (kbd "C-c m e") 'mc/edit-ends-of-lines)
+(global-set-key (kbd "C-c m a") 'mc/edit-beginnings-of-lines)
+
+;;----------------------------------------------------------------------------
+;; windows preferences
+;;----------------------------------------------------------------------------
+
+;; make "C-x o" prompt for a target window when there are more than 2
+(prelude-require-package 'switch-window)
+(setq-default switch-window-shortcut-style 'alphabet)
+(setq-default switch-window-timeout nil)
+(global-set-key (kbd "C-x o") 'switch-window)
+
+;; pin the current buffer to its window
+(defun sanityinc/toggle-current-window-dedication ()
+  "Toggle whether the current window is dedicated to its current buffer."
+  (interactive)
+  (let* ((window (selected-window))
+         (was-dedicated (window-dedicated-p window)))
+    (set-window-dedicated-p window (not was-dedicated))
+    (message "Window %sdedicated to %s"
+             (if was-dedicated "no longer " "")
+             (buffer-name))))
+
+(global-set-key (kbd "C-c <down>") 'sanityinc/toggle-current-window-dedication)
+
+;; split and move focus to new window
+(global-set-key (kbd "C-x 2") (lambda () (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key (kbd "C-x 3") (lambda () (interactive)(split-window-horizontally) (other-window 1)))

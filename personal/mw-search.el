@@ -1,24 +1,25 @@
 ;;----------------------------------------------------------------------------
-;; dired
+;; grep preferences
 ;;----------------------------------------------------------------------------
 
-;; refresh dired buffers when revisited
-(setq dired-auto-revert-buffer t)
+(setq-default grep-highlight-matches t
+              grep-scroll-output t)
 
 ;;----------------------------------------------------------------------------
-;; diredfl
+;; silver searcher preferences
 ;;----------------------------------------------------------------------------
 
-(prelude-require-package 'diredfl)
+(prelude-require-package 'ag)
 
-;; pretty font locking in dired mode
-(diredfl-global-mode)
+;; highlight search output
+(setq-default ag-highlight-search t)
+
+;; shortcut for searching projects
+(define-key smartparens-mode-map (kbd "M-?") nil)
+(global-set-key (kbd "M-?") 'ag-project)
 
 ;;----------------------------------------------------------------------------
-;; diff-hl
+;; writable results buffer
 ;;----------------------------------------------------------------------------
 
-(prelude-require-package 'diff-hl)
-
-;; show version control diffs in dired mode
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(prelude-require-package 'wgrep-ag)

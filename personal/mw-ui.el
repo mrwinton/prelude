@@ -1,13 +1,31 @@
 ;;----------------------------------------------------------------------------
-;; Suppress GUI features
+;; theme
 ;;----------------------------------------------------------------------------
+
+(when (display-graphic-p)
+  (prelude-require-package 'snazzy-theme)
+  (setq prelude-theme 'snazzy)
+  (load-theme 'snazzy))
+
+;;----------------------------------------------------------------------------
+;; friendly scratch message
+;;----------------------------------------------------------------------------
+
+(setq-default initial-scratch-message
+              (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+
+;;----------------------------------------------------------------------------
+;; suppress GUI features
+;;----------------------------------------------------------------------------
+
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
 
 ;;----------------------------------------------------------------------------
-;; Window size and features
+;; minimal ui
 ;;----------------------------------------------------------------------------
+
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (fboundp 'set-scroll-bar-mode)
@@ -24,8 +42,9 @@
   (pixel-scroll-mode 1))
 
 ;;----------------------------------------------------------------------------
-;; Dimmer mode
+;; dimmer mode
 ;;----------------------------------------------------------------------------
+
 (prelude-require-package 'dimmer)
 (setq-default dimmer-fraction 0.1)
 (add-hook 'after-init-hook 'dimmer-mode)

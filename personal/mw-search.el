@@ -1,4 +1,14 @@
 ;;----------------------------------------------------------------------------
+;; projectile preferences
+;;----------------------------------------------------------------------------
+
+;; show dired project root rather than asking for a specific file
+(setq projectile-switch-project-action 'projectile-dired)
+
+;; search even if we're not in a "real" project
+(setq projectile-require-project-root nil)
+
+;;----------------------------------------------------------------------------
 ;; grep preferences
 ;;----------------------------------------------------------------------------
 

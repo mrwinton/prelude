@@ -8,6 +8,9 @@
 ;; search even if we're not in a "real" project
 (setq projectile-require-project-root nil)
 
+;; set preferred projectile prefix
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
 ;;----------------------------------------------------------------------------
 ;; grep preferences
 ;;----------------------------------------------------------------------------

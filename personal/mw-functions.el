@@ -19,3 +19,6 @@
   "Kill the current buffer without prompting."
   (interactive)
   (kill-buffer (current-buffer)))
+
+;; Provides `M-x reveal-in-finder'
+(prelude-require-package 'reveal-in-osx-finder)

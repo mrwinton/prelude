@@ -23,6 +23,9 @@
 (prelude-require-package 'whole-line-or-region)
 (add-hook 'after-init-hook 'whole-line-or-region-mode)
 
+;; Unmap prelude's "text-scale-decrease"
+(define-key global-map (kbd "C--") nil)
+
 ;;----------------------------------------------------------------------------
 ;; aspell preferences
 ;;----------------------------------------------------------------------------
